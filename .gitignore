@@ -1,0 +1,14 @@
+*.wav
+!*.BB.wav
+
+*.bmp
+
+build/
+dist/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
