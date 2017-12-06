@@ -94,8 +94,8 @@ def append_line(string, *lines_to_append):
   return string
 
 # Dumping a set of TLEs files
-def dump_to_file(set_of_TLEs):
-  '''dump_to_file(set_of_TLEs)
+def dump_to_file(set_of_TLEs, directory='../keps/'):
+  '''dump_to_file(set_of_TLEs, [directory='../keps/'])
 
   The function takes a set of TLEs extracted from the AMSAT e-mail list.
   Each member of the set is written to a file, which name containes the
@@ -107,18 +107,24 @@ def dump_to_file(set_of_TLEs):
   Probably the function will be able to handle not just set as parameter,
   but another iterable types. It was not tested due to shortage of available
   time.
+  Optional directory parametere can be passed, which can be either
+  realtive or absolute.
 
   '''
   for element in set_of_TLEs:
     date_string = re.search(PATTERN_DATE, element)
-    date = datetime.datetime.strptime(date_string.group(0), '%B %d, %Y')
-    filename = date.strftime('%Y-%m-%d')  + '.amsat.tle'
-    directoryname = date.strftime('%Y')
+    if date_string == None:
+      return None
+    else:
+      date = datetime.datetime.strptime(date_string.group(0), '%B %d, %Y')
+      filename = date.strftime('%Y-%m-%d')  + '.amsat.tle'
+      directoryname = date.strftime('%Y')
+
     i = 0      # iteration for the directory name
 
     while True:
       if os.path.isdir(directoryname):
-        full_path = os.path.join(os.getcwd(), directoryname, filename)
+        full_path = os.path.join(directory, directoryname, filename)
         break
       else:
         if os.path.exists(directoryname):
@@ -128,23 +134,25 @@ def dump_to_file(set_of_TLEs):
             directoryname[:directoryname.rfind('_')] += '_' + '%02d' %(i)
             i += 1
         else:
-          full_path = os.path.join(os.getcwd(), directoryname, filename)
+          full_path = os.path.join(directory, directoryname, filename)
 
-      os.makedirs(directoryname)
-      tle_file = open(full_path, 'w')
-      tle_file.write(string)
-      tle_file.close()
+    os.makedirs(os.path.join(directory, directoryname), exist_ok=True)
+    tle_file = open(full_path, 'w')
+    tle_file.writelines(element)
+    tle_file.close()
 
 # Function to look up TLE in the AMSAT mailing list archive.
 #
 #
-def extract_amsat_TLE(AMSAT_maillist_filename):
-  '''extract_amsat_TLE(AMSAT_maillist_filename)
+def extract_amsat_TLE(AMSAT_maillist_filename, directory='../keps/'):
+  '''extract_amsat_TLE(AMSAT_maillist_filename, [directory='../keps/'])
   The mail list file is from http://amsat.org/pipermail/keps/.
   The filename is just the year represented by four digits,
   a period and string "txt" (i.e. 2006.txt).
+  Optional directory parametere can be passed, which can be either
+  realtive or absolute.
   '''
-  f = open(AMSAT_maillist_filename, 'r')
+  f = open(os.path.join(directory, AMSAT_maillist_filename), 'r')
   f_register = 0
   string_TLE = ''
   set_of_string_TLE = set()

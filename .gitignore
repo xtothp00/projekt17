@@ -10,5 +10,7 @@ dist/
 __pycache__/
 *.py[cod]
 
+*.swp
+
 # C extensions
 *.so
