@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%   2017 -- Diplomamunkavázlat                                                 %
+%                                                                              %
+%  A latex.feec.vutbr.cz weboldal által szolgáltatott minta alapján készült.   %
+%  Importálva azok a csomagok lettek, melyek a mintában is vannak.             %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, 12pt, unicode, czech]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[nohyperlinks]{acronym}
+\usepackage[breaklinks=true, hypertexnames=false]{hyperref}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+  \setlist{topsep=0pt,partopsep=0pt,noitemsep}
+\usepackage{cmap}
+\usepackage{upgreek}
+\usepackage{dirtree}
+\usepackage[formats]{listings}
+\lstset{
+% Definice jazyka použitého ve výpisech
+% language=[LaTeX]{TeX},  % LaTeX
+% language={Matlab},      % Matlab
+  language={C},           % jazyk C
+    basicstyle=\ttfamily, % definice základního stylu písma
+    tabsize=2,            % definice velikosti tabulátoru
+    inputencoding=utf8,   % pro soubory uložené v kódování UTF-8
+    columns=fixed,        % flexible,
+    fontadjust=true       % licovani sloupcu
+    extendedchars=true,
+    literate=             %  definice symbolů s diakritikou
+    {á}{{\'a}}1
+    {č}{{\v{c}}}1
+    {ď}{{\v{d}}}1
+    {é}{{\'e}}1
+    {ě}{{\v{e}}}1
+    {í}{{\'i}}1
+    {ň}{{\v{n}}}1
+    {ó}{{\'o}}1
+    {ř}{{\v{r}}}1
+    {š}{{\v{s}}}1
+    {ť}{{\v{t}}}1
+    {ú}{{\'u}}1
+    {ů}{{\r{u}}}1
+    {ý}{{\'y}}1
+    {ž}{{\v{z}}}1
+    {Á}{{\'A}}1
+    {Č}{{\v{C}}}1
+    {Ď}{{\v{D}}}1
+    {É}{{\'E}}1
+    {Ě}{{\v{E}}}1
+    {Í}{{\'I}}1
+    {Ň}{{\v{N}}}1
+    {Ó}{{\'O}}1
+    {Ř}{{\v{R}}}1
+    {Š}{{\v{S}}}1
+    {Ť}{{\v{T}}}1
+    {Ú}{{\'U}}1
+    {Ů}{{\r{U}}}1
+    {Ý}{{\'Y}}1
+    {Ž}{{\v{Z}}}1
+}
+\usepackage{babel}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+
+\usepackage[%
+%% Z následujících voleb lze použít pouze jednu
+% left,               % Rovnice a popisky plovoucich objektů budou %zarovnány vlevo
+  center,             % Rovnice a popisky plovoucich objektů budou zarovnány na střed (vychozi)
+% Z následujících voleb lze použít pouze jednu
+  semestral           % sazba zprávy semestrálního projektu
+  %bachelor           % sazba bakalářské práce
+  %diploma            % sazba diplomové práce
+  %treatise           % sazba pojednání o dizertační práci
+  %phd                % sazba dizertační práce
+  ]{thesis}           % Balíček pro sazbu studentských prací
+                      % Musí být vložen až jako poslední, aby
+                      % ostatní balíčky nepřepisovaly jeho příkazy
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%   Paraméterek külső állományból való betöltése.                              %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{SP.parameterek}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%   A diplomamunka vázlat szöveges részének kezdete.                           %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+  \includepdf[pages=1,offset=15.4mm -1in]{pdf/desky_xtothp00.pdf}     % Vložení desek generovaných informačním systémem
+  \setcounter{page}{1}                                                % Resetovani citace stranek - desky se necisluji
+  \includepdf[pages=1,offset=15.4mm -1in]{pdf/titulni_list_cb.pdf}    % Vložení titulního listu generovaného informačním systémem
+  \includepdf[pages=1,offset=15.4mm -1in]{pdf/zadani_xtothp00_cb.pdf} % Vložení zadání generovaného informačním systémem
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A tartalmi kivonat, köszönet rész.
+  \vytvorabstrakt
+  \vytvorprohlaseni
+  \vytvorpodekovani
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A tartalmak, felsorolások része.
+  \obsah
+  \seznamobrazku
+  \seznamtabulek
+  \lstlistoflistings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Az érdemi szöveg itt kezdődik.
+  \include{text/01-uvod}
+  \include{text/02-reseni}
+  \include{text/03-vysledky}
+  \include{text/04-zaver}
+  \include{text/05-literatura}
+  \include{text/06-zkratky}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Csatolmányok
+  \prilohy
+  \seznampriloh
+  \include{text/07-prilohy}
+
+\end{document}
