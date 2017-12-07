@@ -14,3 +14,13 @@ __pycache__/
 
 # C extensions
 *.so
+
+# LaTeX temporary files, logs, etc.
+*.aux
+*.lof
+*.log
+*.lol
+*.lot
+*.out
+*.toa
+*.toc

@@ -75,28 +75,31 @@ def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='43535
     if (int(audio_dict.get('resolution')) == 16) & (audio_dict.get('format_settings') == 'Little / Signed'):
       intype   = '--intype i16 '
       outtype  = '--outtype i16 '
+      sox_cmd = 'sox --bits 16 --channels 2 --encoding signed-integer --rate ' + str(audio_dict.get('sampling_rate')) + ' --type raw - --bits 16 --channels 2 --encoding signed-integer --rate ' + str(audio_dict.get('sampling_rate')) + ' --type wav -'
     else:           #in case of strange Wave format, e.g. float samples
       print('Format yet not tested: ')
       print(' * reslution:      ', audio_dict.get('resolution'))
       print(' * format_settings:', audio_dict.get('format_settings'))
       return 1
     tlefile    = '--tlefile '   + os.path.join(directory_TLE, filename_TLE[:4], filename_TLE) + ' '
-    tlename    = '--tlename '   + satellite_name                            + ' '
-    location   = '--location '  + location_SDR                              + ' '
-    frequency  = '--frequency ' + satellite_frequency                       + ' '
-    time       = '--time '      + local_datetime_IQ.isoformat()[:-6]          + ' '
-    infile     = os.path.join(directory_IQ, filename_IQ)                    + ' '
+    tlename    = '--tlename '   + satellite_name                     + ' '
+    location   = '--location '  + location_SDR                       + ' '
+    frequency  = '--frequency ' + satellite_frequency                + ' '
+    time       = '--time '      + local_datetime_IQ.isoformat()[:-6] + ' '
+    infile     = os.path.join(directory_IQ, filename_IQ)             + ' '
     output     = ' > '
     for i in filename_IQ.split('.')[:-1]:
       output  += i
     output    += '.UD.local.' + filename_IQ.split('.')[-1]
 
+    doppler_cmd = 'doppler track '+ samplerate + intype + outtype + tlefile + tlename + location + frequency + time
 
-    full_command_doppler = 'cat ' + infile + ' | doppler track ' + samplerate + intype + outtype + tlefile + tlename + location + frequency + time + output
+    full_command_doppler = 'cat ' + infile + ' | ' + doppler_cmd + ' | ' + sox_cmd + output
 
     print(full_command_doppler)
     os.system(full_command_doppler)
-
+    print(full_command_doppler)
+# cat ../../../test/HDSDR_20160127_161858Z_435320kHz_RF.wav  | doppler track --samplerate 250000 --intype i16 --outtype i16 --tlefile ../keps/2016/2016-01-21.amsat.tle --tlename NO-84 --location lat=49.173238,lon=16.961292,alt=263.73 --frequency 435320000 --time 2016-01-21T00:33:53 | sox --bits 16 --channels 2 --encoding signed-integer --rate 96000 -t raw - --type wav - > HDSDR_20160121_003353Z_435320kHz_RF.UD.local.wav
 #
 #Doppler tracking mode
 #
