@@ -1,5 +1,18 @@
-\chapter[Teoretická část studentské práce]{Teoretická část studentské\\ práce}
+\chapter[Sledování a predikce pohybu těles na oběžné dráze Země]{Sledování a predikce pohybu těles na oběžné dráze Země}
 
-Teoretické zázemí studentské práce vhodně rozdělené do částí.
+Objekty, které se pohybují vesmírem kolem Země jsou sledovány organizacemi \cite{wiki:derbis}:
+\begin{itemize}
+    \item \zkratka{USSTRATCOM}(součást \zkratka{DoD})
+    \item \zkratka{ESA}
+    \item \zkratka{Fraunhofer-FHR}
+    \item \zkratka{JPL}(součast \zkratka{NASA})
+    \item \zkratka{MIT}
+    \item \zkratka{EISCAT}
+    \item \zkratka{USAF}
+\end{itemize}
 
-(Struktura navržená v~této šabloně je nejhrubší možná, po konzultaci s~vedoucím je vhodné zvolit přiléhavější.)
+Ke sledování se používají pozemní radary, lidary, pozemní  a vesmírné teleskopy. Mezi sledované objekty patří umělé družice, pozůstatky raket a jiný vesmírný odpad. Nejrozsáhlejší katalog stavu družic udržuje Ministerstvo obrany Spojených států (\zkratka{DoD}) s názvem Space Object Catalog. Civilní varianta této databáze je provozována organizaci \zkratka{NASA}. Tyto databáze se udržují pomocí různých modelů orbitální mechaniky. Pohyby družic jsou analyticky vypočteny pomocí teorie všeobecných perturbací. Prvky dráhy této teorie jsou publikovány ve formátu \zkratka{NASA}/NORAD \zkratka{TLE}. \cite{wiki:US_space_surv}.
+
+Proč se zabývat přesnou polohou družice? Pro korekci dopplerovského posuvu frekvence musíme znát polohu naši pozemní stanice, polohu družice a předpovědět její polohu. K tomu pozdějšímu nám právě napomáhají prvky dráhy ze souborů \zkratka{TLE} využívajíc model \zkratka{SGP4} \cite{wiki:TLE}.
+
+\chapter{}

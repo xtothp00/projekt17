@@ -1,6 +1,7 @@
 *.wav
 !*.BB.wav
-
+*.odt
+.~lock.*.odt#
 *.bmp
 
 build/
