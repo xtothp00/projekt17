@@ -1,4 +1,5 @@
-\chapter[Struční přehled amaterských družic]{Struční přehled\\ amaterských družic}
+\chapter{Teorie}
+\section[Struční přehled amaterských družic]{Struční přehled\\ amaterských družic}
 
 Radiokomunikace prošla ohromným vývojem v průběhu druhé polovice 20. století. Vypuštění první umělé družice Sputnik-1 v roce 1957 datujeme začátek vesmírného věku. Od té doby se otevřeli nové možnosti radioamatérův věnovat se svému koníčku, nebo výzkumu.
 
@@ -32,14 +33,48 @@ Proč se zabývat přesnou polohou družice? Aby jsme byly schopní provést kor
 
 %Pro korekci dopplerovského posuvu frekvence musíme znát polohu naši pozemní stanice, polohu družice a předpovědět její polohu. K tomu pozdějšímu nám právě napomáhají prvky dráhy ze souborů \zkratka{TLE} využívajíc model \zkratka{SGP4} \cite{wiki:TLE}.
 
-\chapter{Výpočet rychlosti těles na oběžní dráze Země}
-  TBD\dots
+\section{Výpočet rychlosti těles na oběžní dráze Země}
+  Rychlost těles na oběžné dráze dráze lze precizně vypočítat pomocí vztahu \cite{wiki:orb_speed}:
 
-\chapter{Určení dopplerovského posuvu}
-  TBD\dots
+  \begin{equation}
+    v = \sqrt{\mu - \left( \frac{2}{r} - \frac{1}{a} \right)}
+  \end{equation}
 
-\chapter{Korekce dopplerovského posuvu}
-  TBD\dots
+  kde $\mu$ je standardní gravitační parametr, $v$ je rychlost tělesa, $r$ je vzdálenost tělesa od místa pozorování, $a$ je délka hlavní poloosy.
 
-\chapter{Demodulace a dekódování signálu}
-  TBD\dots
+  \begin{table}[ht]
+    \begin{tabular}{l | c c }
+      orbita        & výška orbitu     & rychlost orbitu                        \\
+      $[-]$         & $[\mathrm{km}]$  & $[\nicefrac{\mathrm{km}}{\mathrm{s}}]$ \\
+      \hline
+      LEO           & $200$ -- $2000$  & $6{,}9$ -- $7{,}8$ pro kruhovou dráhu  \\
+      Molnija       & $500$ -- $39900$ & $6{,}5$ -- $8{,}2$ pro eliptickou dráhu\\
+      Geostacinární & $35768$          & $0{,}97$ -- $1{,}08$
+    \end{tabular}
+    \caption{Tangenciální rychlost pro různé orbity \cite{wiki:orb_speed}}
+  \end{table}
+
+\section{Určení dopplerovského posuvu}
+  Pozorovatel, který je v relativním pohybu vzhledem ke zdroji vlnění, bude vnímat vlnění se změněným kmitočtem. V případě, že relativní rychlost se mění časem, mění se i velikost změny kmitočtu. Tuto změnu kmitočtu nazýváme dopplerovským posuvem a jev se nazývá Dopplerův jev, který byl publikovaný Christianem Dopplerem v roce 1842 v Praze.
+
+  Velikost dopplerovského posuvu lze přibližně určit pomocí vztahu \cite{wiki:doppler_effect}:
+  \begin{equation}
+    \Delta f = \frac{\Delta v}{c} f_0
+  \end{equation}
+
+  kde $\Delta f$ je posuv kmitočtu, $\Delta v$ je relativní rychlost, $c$ rychlost vln v prostředí, $f_0$ je původní kmitočet.
+
+  Pro výpočet dopplerovského posuvu signálu vysílaného družicí na oběžné dráze Země je potřebné znát její relativní rychlost vzhledem k pozorovateli na pozemní stanici. Tuto rychlost lze vypočítat z oběžné rychlosti družice pomocí trigonometrických výpočtů. Princip je zobrazen na obrázku \ref{img:rel_vel}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics{./obrazky/doppler_shift.eps}
+    \caption{Výpočet vektoru relatívní rychlosti \cite{book:doppler_compensation}}
+    \label{img:rel_vel}
+  \end{figure}
+
+
+%\chapter{Korekce dopplerovského posuvu}
+%  TBD\dots
+%
+%\chapter{Demodulace a dekódování signálu}
+%  TBD\dots

@@ -22,21 +22,23 @@ def join(inp_list):
     out_string += i
   return out_string
 
-def IQ_to_spectogram(filename_IQ, Fc=435320000):
-  rate, data = wavfile.read('HDSDR_20160121_003353Z_435320kHz_RF.UD.local.wav', mmap=False)
+def IQ_to_spectogram(filename_IQ):
+  rate, data = wavfile.read(filename_IQ, mmap=False)
   data_cmpl = data.view(np.int16).astype(np.float32).view(np.complex64)   # Changing the data type to complex and
   data_cmpl = data_cmpl.reshape(data_cmpl.shape[0] * data_cmpl.shape[1])  # Reshaping to fit the specgram
+
+  Fc = int(filename_IQ.split('_')[3][:-3])*1000
 
   cmap = plt.get_cmap('spectral')
   function_formatter = FuncFormatter(format_mega)
   vmin = 10 * np.log10(np.max(np.abs(data_cmpl))) - 40
 
   color_legend, spectrogram = plt.subplots()
-  Sxx,  f, t, cb = spectrogram.specgram(data_cmpl, NFFT=2048, Fs=rate, Fc, vmin=-18, sides='onesided')
+  Sxx,  f, t, cb = spectrogram.specgram(data_cmpl, NFFT=2048, Fs=rate, Fc=Fc, vmin=-18, sides='onesided')
   spectrogram.set_ylabel('f [MHz]')
   spectrogram.yaxis.set_major_formatter(function_formatter)
   spectrogram.set_xlabel('t [s]')
 #  ax.ylim(-rate/2, rate/2)
   color_legend.colorbar(cb)
-  plt.savefig(join(filename.split('.')[:-1])+'.png', dpi=600, bbox_inches='tight', pad_inches=0.5)
+  plt.savefig(join(filename_IQ.split('.')[:-1])+'.png', dpi=600, bbox_inches='tight', pad_inches=0.5)
   plt.close()

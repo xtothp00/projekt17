@@ -1,4 +1,6 @@
-\chapter{vytvoření archivu dat TLE}
+\chapter{Realizace skriptů v jazyce Python 3}
+
+\section{vytvoření archivu dat TLE}
   Vytvoření lokální databázi dat TLE je nezbytné pro správnou korekci dopplerovského posuvu. Pro umělé družice NO-83 a NO-84 jsou veřejně přístupné data TLE na stránce organizace \zkratka{AMSAT}: <\url{http://amsat.org/pipermail/keps/}>. Tyto data jsou distribuované formou elektronického mailing list, kterého archív se nachází na výše zmíněném URL v jedním souboru. Aby bylo možné použit údaje TLE obsáhnuty v tomhle archivním souboru, je nutné provést extrakci dat TLE dle datu jejího vzniku.
 
   Na obrázku \ref{fig:TLE_flow} je uveden vývojový diagram skriptu pro extrahování dat TLE. Jako povinný vstupní parametr je název souboru staženého z webové stránky oragnizace \zkratka{AMSAT}. Data TLE jsou posílané v jednom emailu. Skript identifikuje začátek i konec balíků dat TLE. Na začátku každého balíku se hledjí vzory:\\
@@ -19,7 +21,7 @@
     \label{fig:TLE_flow}
   \end{figure}
 
-\chapter{Korekce dopplerovského posuvu}
+\section{Korekce dopplerovského posuvu}
 % gpredict -- libgpredict, doppler
 % mediainfo, sox
   Po úspěšném získání nutných souborů s daty TLE pro umělé družice našeho zájmu, můžeme přistoupit ke korekci dopplerovského posuvu signálu, kterou provedeme pomocí programu doppler volně dostupného z repozitáře GIT týmu codehub dostupného na URL <\url{https://github.com/cubehub}>.
@@ -50,3 +52,10 @@
     \caption{Náčrt fungování modulu pro korekci dopplerovho posuvu}
     \label{fig:undoppler}
   \end{figure}
+
+\section{Tvorba spektrogramů}
+
+Kontrola správnosti korekci dopplerovského posuvu lze hrubě odhadnout pomocí spektrogramu korigovaných IQ dat. Pro automatizovaní tohoto procesu slouží modul wav2spectrogram.
+
+Hlavní částí tohoto modulu je funkce IQ\_to\_spectrogram.
+Python 3 modul pro tvorbu spektrogramů. Jediným argumentem je název souboru IQ dat. Ostatní parametry jsou buď napevno dány, nebo automaticky zjištění ze souboru IQ dat. Spektrogram je uložen ve formátu \zkratka{PNG}.
