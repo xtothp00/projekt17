@@ -3,6 +3,7 @@
 *.odt
 .~lock.*.odt#
 *.bmp
+*~
 
 build/
 dist/

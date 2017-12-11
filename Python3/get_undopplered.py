@@ -17,6 +17,7 @@ def extract_IQ_filename(filename, directory='../NO-84'):
   If the file is not ending with 'wav', then instead of a dictionary
   None is returned.
   '''
+# How the regex is built -- hint from a filename.
 #                              HDSDR_      20160126 _       205400  Z _             435320 kHz_ RF  .              wav
   pattern_named = re.compile(r'HDSDR_(?P<date>\d{8})_(?P<time>\d{6}).*_(?P<frequency>\d{6})kHz_(RF)\.(?P<extension>\w{3})$')    # REGEX pattern with named subgroups date, time, frequency, extension
   filename_regexed_named = re.search(pattern_named, filename)
@@ -56,7 +57,14 @@ def find_TLE_for_IQ_file(filename_IQ, directory_TLE='../keps/'):
   else:
     return None
 
+# Function used for undoing the doppler frequency shift using the doppler application called by os.system
 def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73'):
+  '''undoppler_it(filename_IQ, [satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73']):
+
+  Only one paremeter is requered not to get an error, but not all time
+  will it make sense. It is due to the fact that the optional parameters
+  are used only for the purpose of the testing.
+  '''
   filename_TLE = find_TLE_for_IQ_file(filename_IQ, directory_TLE)
 
   if filename_TLE != None:
@@ -75,7 +83,6 @@ def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='43535
     if (int(audio_dict.get('resolution')) == 16) & (audio_dict.get('format_settings') == 'Little / Signed'):
       intype   = '--intype i16 '
       outtype  = '--outtype i16 '
-      sox_cmd = 'sox --bits 16 --channels 2 --encoding signed-integer --rate ' + str(audio_dict.get('sampling_rate')) + ' --type raw - --bits 16 --channels 2 --encoding signed-integer --rate ' + str(audio_dict.get('sampling_rate')) + ' --type wav -'
     else:           #in case of strange Wave format, e.g. float samples
       print('Format yet not tested: ')
       print(' * reslution:      ', audio_dict.get('resolution'))
@@ -90,37 +97,18 @@ def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='43535
     output     = ' > '
     for i in filename_IQ.split('.')[:-1]:
       output  += i
-    output    += '.UD.local.' + filename_IQ.split('.')[-1]
+    output    += '.UD.' + filename_IQ.split('.')[-1]
+
+    sox_cmd_rbche = '--rate ' + str(audio_dict.get('sampling_rate')) + ' --bits 16 --channels 2 --encoding signed-integer '
+    sox_cmd_out = 'sox ' + sox_cmd_rbche + ' --type raw - '        + sox_cmd_rbche + ' --type wav -'
+    sox_cmd_inp = 'sox ' + sox_cmd_rbche + ' --type wav ' + infile + sox_cmd_rbche + ' --type raw -'
 
     doppler_cmd = 'doppler track '+ samplerate + intype + outtype + tlefile + tlename + location + frequency + time
 
-    full_command_doppler = 'cat ' + infile + ' | ' + doppler_cmd + ' | ' + sox_cmd + output
+    full_command_doppler = sox_cmd_inp + ' | ' + doppler_cmd + ' | ' + sox_cmd_out + output
 
-    print(full_command_doppler)
     os.system(full_command_doppler)
     print(full_command_doppler)
-# cat ../../../test/HDSDR_20160127_161858Z_435320kHz_RF.wav  | doppler track --samplerate 250000 --intype i16 --outtype i16 --tlefile ../keps/2016/2016-01-21.amsat.tle --tlename NO-84 --location lat=49.173238,lon=16.961292,alt=263.73 --frequency 435320000 --time 2016-01-21T00:33:53 | sox --bits 16 --channels 2 --encoding signed-integer --rate 96000 -t raw - --type wav - > HDSDR_20160121_003353Z_435320kHz_RF.UD.local.wav
-#
-#Doppler tracking mode
-#
-#USAGE:
-#        doppler track [FLAGS] [OPTIONS] --samplerate <SAMPLERATE> --intype <INTYPE> --tlefile <TLEFILE> --tlename <TLENAME> --location <LOCATION> --frequency <FREQUENCY>
-#
-#FLAGS:
-#    -h, --help       Prints help information
-#    -V, --version    Prints version information
-#
-#OPTIONS:
-#        --frequency <FREQUENCY>      Satellite transmitter frequency in Hz
-#    -i, --intype <INTYPE>            IQ data type [values: i16, f32]
-#        --location <LOCATION>        Observer location (lat=<deg>,lon=<deg>,alt=<m>): eg. lat=58.64560,lon=23.15163,alt=8
-#        --offset <OFFSET>            Constant frequency shift in Hz. Can be used to compensate constant offset
-#    -o, --outtype <OUTTYPE>          IQ data output type [values: i16, f32]
-#    -s, --samplerate <SAMPLERATE>    IQ data samplerate
-#        --time <TIME>                Observation start time in UTC Y-m-dTH:M:S: eg. 2015-05-13T14:28:48. If not specified current time is used
-#    --tlefile <TLEFILE>          TLE file: eg. http://www.celestrak.com/NORAD/elements/cubesat.txt
-#    --tlename <TLENAME>          TLE name in TLE file: eg. ESTCUBE 1
-#
 
   else:
     return None

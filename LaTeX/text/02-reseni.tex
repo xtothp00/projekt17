@@ -1,4 +1,14 @@
-\chapter[Sledování a predikce pohybu těles na oběžné dráze Země]{Sledování a predikce pohybu těles na oběžné dráze Země}
+\chapter[Struční přehled amaterských družic]{Struční přehled\\ amaterských družic}
+
+Radiokomunikace prošla ohromným vývojem v průběhu druhé polovice 20. století. Vypuštění první umělé družice Sputnik-1 v roce 1957 datujeme začátek vesmírného věku. Od té doby se otevřeli nové možnosti radioamatérův věnovat se svému koníčku, nebo výzkumu.
+
+    Necelé čtyři roky po vypuštění první umělé družice Země se svět dočkal první amatérské umělé družice sestrojeného v rámci projektu \zkratka{OSCAR} \cite{wiki:amateur_sat}, kterého nástupnickou organizaci se stal \zkratka{AMSAT} \cite{wiki:AMSAT}. Družice OSCAR I byla vypuštěná na nízkou oběžnou dráhu jako druhotný náklad, který vyžíval rezervy nosnosti rakety  Thor DM-21 Agena-B. Tento způsob dopravy byl zvolen z ekonomických důvodů a je dodnes používán.
+
+    Obecně se amatérské družice nasazují na nízkou oběžnou dráhu (Low Earth Orbit -- LEO) \cite{book:ARRL_handbook}. Výhodou dráhy tohoto typu je jejich finanční nenáročnost, co je zčásti způsobená vlastností plynoucího z nazvu oběžné dráhy, výškou orbitu, který se pohybuje od $300\,\mathrm{km}$ do $2000\,\mathrm{km}$. Nedostatkem nízké oběžné dráhy je vysoká relativní rychlost družice vůči pozemní stanici, která přibližně $7{,}8\,\mathrm{\nicefrac{km}{s}}$ \cite{wiki:LEO} jehož důsledkem je rádiový signál značně postižen dopplerovským posuvem kmitočtu, kterého velikost dosahuje i $26\,\mathrm{ppm}$.
+
+
+
+\chapter{Sledování a predikce pohybu těles na oběžné dráze Země}
 
 Objekty, které se pohybují vesmírem kolem Země jsou sledovány organizacemi \cite{wiki:derbis}:
 \begin{itemize}
@@ -13,6 +23,23 @@ Objekty, které se pohybují vesmírem kolem Země jsou sledovány organizacemi 
 
 Ke sledování se používají pozemní radary, lidary, pozemní  a vesmírné teleskopy. Mezi sledované objekty patří umělé družice, pozůstatky raket a jiný vesmírný odpad. Nejrozsáhlejší katalog stavu družic udržuje Ministerstvo obrany Spojených států (\zkratka{DoD}) s názvem Space Object Catalog. Civilní varianta této databáze je provozována organizaci \zkratka{NASA}. Tyto databáze se udržují pomocí různých modelů orbitální mechaniky. Pohyby družic jsou analyticky vypočteny pomocí teorie všeobecných perturbací. Prvky dráhy této teorie jsou publikovány ve formátu \zkratka{NASA}/NORAD \zkratka{TLE}. \cite{wiki:US_space_surv}.
 
-Proč se zabývat přesnou polohou družice? Pro korekci dopplerovského posuvu frekvence musíme znát polohu naši pozemní stanice, polohu družice a předpovědět její polohu. K tomu pozdějšímu nám právě napomáhají prvky dráhy ze souborů \zkratka{TLE} využívajíc model \zkratka{SGP4} \cite{wiki:TLE}.
+Proč se zabývat přesnou polohou družice? Aby jsme byly schopní provést korekci dopplerovského posuvu, musíme splnit několik požadavek výpočtu:
+\begin{itemize}
+%  \item přesný čas
+  \item polohu pozemní stanice \footnote{pozemní stanici považujeme za stacionární vzhledem ke povrchu Země}
+  \item polohu a rychlost umělé družice
+\end{itemize}
 
-\chapter{}
+%Pro korekci dopplerovského posuvu frekvence musíme znát polohu naši pozemní stanice, polohu družice a předpovědět její polohu. K tomu pozdějšímu nám právě napomáhají prvky dráhy ze souborů \zkratka{TLE} využívajíc model \zkratka{SGP4} \cite{wiki:TLE}.
+
+\chapter{Výpočet rychlosti těles na oběžní dráze Země}
+  TBD\dots
+
+\chapter{Určení dopplerovského posuvu}
+  TBD\dots
+
+\chapter{Korekce dopplerovského posuvu}
+  TBD\dots
+
+\chapter{Demodulace a dekódování signálu}
+  TBD\dots
