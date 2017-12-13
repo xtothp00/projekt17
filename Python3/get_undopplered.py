@@ -1,7 +1,9 @@
 import re
 import datetime, pytz
-import os
+import os, pty
+import subprocess, shlex
 import pymediainfo
+import wav2spectrogram as w2s
 
 # Function to get some information from the IQ sample filename.
 def extract_IQ_filename(filename, directory='../NO-84'):
@@ -21,12 +23,15 @@ def extract_IQ_filename(filename, directory='../NO-84'):
 #                              HDSDR_      20160126 _       205400  Z _             435320 kHz_ RF  .              wav
   pattern_named = re.compile(r'HDSDR_(?P<date>\d{8})_(?P<time>\d{6}).*_(?P<frequency>\d{6})kHz_(RF)\.(?P<extension>\w{3})$')    # REGEX pattern with named subgroups date, time, frequency, extension
   filename_regexed_named = re.search(pattern_named, filename)
-  file_parameters = filename_regexed_named.groupdict()
+  if filename_regexed_named != None:
+    file_parameters = filename_regexed_named.groupdict()
 
-  if file_parameters['extension'] == 'wav':     # filter out non-wav files
-    return file_parameters
+    if file_parameters['extension'] == 'wav':     # filter out non-wav files
+      return file_parameters
+    else:
+      return None
   else:
-    return None
+    print(filename_regexed_named)
 
 # A little 'key' function for sorting TLE files with sorted()
 def key_function_TLE(date_IQ, date_TLEs):
@@ -58,7 +63,7 @@ def find_TLE_for_IQ_file(filename_IQ, directory_TLE='../keps/'):
     return None
 
 # Function used for undoing the doppler frequency shift using the doppler application called by os.system
-def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73'):
+def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73', offset_corr=False):
   '''undoppler_it(filename_IQ, [satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73']):
 
   Only one paremeter is requered not to get an error, but not all time
@@ -94,21 +99,30 @@ def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='43535
     frequency  = '--frequency ' + satellite_frequency                + ' '
     time       = '--time '      + local_datetime_IQ.isoformat()[:-6] + ' '
     infile     = os.path.join(directory_IQ, filename_IQ)             + ' '
-    output     = ' > '
-    for i in filename_IQ.split('.')[:-1]:
-      output  += i
-    output    += '.UD.' + filename_IQ.split('.')[-1]
+#   for i in filename_IQ.split('.')[:-1]:
+#     filename+= i
+    if offset_corr:
+      outfile    = os.path.join(directory_IQ, w2s.join(filename_IQ.split('.')[0:-1]) + '.UD.OC.' + filename_IQ.split('.')[-1])
+    else:
+      outfile    = os.path.join(directory_IQ, w2s.join(filename_IQ.split('.')[0:-1]) + '.UD.' + filename_IQ.split('.')[-1])
 
     sox_cmd_rbche = '--rate ' + str(audio_dict.get('sampling_rate')) + ' --bits 16 --channels 2 --encoding signed-integer '
-    sox_cmd_out = 'sox ' + sox_cmd_rbche + ' --type raw - '        + sox_cmd_rbche + ' --type wav -'
+    sox_cmd_out = 'sox ' + sox_cmd_rbche + ' --type raw - '        + sox_cmd_rbche + ' --type wav '  + outfile
     sox_cmd_inp = 'sox ' + sox_cmd_rbche + ' --type wav ' + infile + sox_cmd_rbche + ' --type raw -'
 
-    doppler_cmd = 'doppler track '+ samplerate + intype + outtype + tlefile + tlename + location + frequency + time
+    if offset_corr:
+      offset = int(satellite_frequency) - (1000 * int(parameters_IQ.get('frequency')))
+      offset = '--offset %d ' %(offset)
+      doppler_cmd = 'doppler track '+ samplerate + intype + outtype + tlefile + tlename + location + frequency + time + offset
+    else:
+      doppler_cmd = 'doppler track '+ samplerate + intype + outtype + tlefile + tlename + location + frequency + time
 
-    full_command_doppler = sox_cmd_inp + ' | ' + doppler_cmd + ' | ' + sox_cmd_out + output
+    full_command_doppler = sox_cmd_inp + ' | ' + doppler_cmd + ' | ' + sox_cmd_out
 
-    os.system(full_command_doppler)
+    os.system (full_command_doppler)
     print(full_command_doppler)
+    print('undoppler: ' + outfile + str(type(outfile)))
+    return outfile
 
   else:
     return None

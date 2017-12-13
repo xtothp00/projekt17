@@ -59,3 +59,53 @@ Kontrola správnosti korekci dopplerovského posuvu lze hrubě odhadnout pomocí
 
 Hlavní částí tohoto modulu je funkce IQ\_to\_spectrogram.
 Python 3 modul pro tvorbu spektrogramů. Jediným argumentem je název souboru IQ dat. Ostatní parametry jsou buď napevno dány, nebo automaticky zjištění ze souboru IQ dat. Spektrogram je uložen ve formátu \zkratka{PNG}.
+
+\section{Quo vadis moduly?}
+
+Kudy směrují tyto moduly? Je filozofická otázka, na kterou by se dalo napsat nespočetné množství stran. Lze říct, že sami o sobě tyto moduly, skripty, neprovádějí automatické zpracování signálů, avšak jako základ pro budoucí vývoj mohou být nápomocné pro svou vlastnost zjednodušeného volání jinou funkcí, skriptem. Jazyk Python umožňuje jednoduchou iteraci nad všemi soubory složky, což nám dává možnost dávkového zpracování souborů s IQ daty.
+
+Do budoucna se počítá s dalším zpracováním frekvenčně zkorigovaných signálů. Jedná se o demodulaci FM a následné dekódování přijatých zpráv telemetrie PSK31.
+
+
+\chapter{Prezentace výsledků}
+\label{chap:prez}
+
+Funkčnost skript bylo ověřeno na záznamech signálů umělých družic NO-83, a NO-84.
+
+Na obrázku \ref{fig:NO-84_raw} je znázorněn spektrogram přijatého rádiového signálu umělé družice NO-84. Dopplerův efekt lze zpozorovat na základě zjevného klesání kmitočtu přijatého signálu v závislosti na čase. Za předpokladu konstantního kmitočtu nosné vysílače a kmitočtu lokálního oscilátoru směšovače radiového přijímače můžeme usoudit, že umělá družice se k nám přibližuje a její relatívní rychlost vzhledem ke místu příjmu se zmenšuje.
+
+Po aplikování korekci dopplerovského posuvu je spektrogram signálu znázorněn na obrázku \ref{fig:NO-84_ud}. Vidno, že drift kmitočtu od ideálního stavu přímky je minimální. Tyto odchylky jsou dány:
+
+\begin{itemize}
+  \item nepřesnost lokálního oscilátoru družice
+  \item korekce kmitočtového posuvu po částech signálu diskrétní časové délky
+  \item nepřesnost modelu SGP4 při předvídání pohybu družice
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./obrazky/HDSDR_20160123_152139Z_435320kHz_RF.png}
+  \caption{Spektrogram signálu družice NO-84 bez korekce}
+  \label{fig:NO-84_raw}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./obrazky/HDSDR_20160123_152139Z_435320kHz_RFUD.png}
+  \caption{Spektrogram signálu družice NO-84 s korekcí}
+  \label{fig:NO-84_ud}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./obrazky/HDSDR_20160127_161858Z_435320kHz_RF.png}
+  \caption{Spektrogram signálu družice NO-83 bez korekce}
+  \label{fig:NO-83_raw}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./obrazky/HDSDR_20160127_161858Z_435320kHz_RFUD.png}
+  \caption{Spektrogram signálu družice NO-83 s korekcí}
+  \label{fig:NO-83_ud}
+\end{figure}

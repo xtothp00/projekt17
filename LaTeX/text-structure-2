@@ -1,0 +1,25 @@
+0. Úvod
+  - proč družicová komunikace
+  - problémy amatérských umělých družic na LEO
+  - struktura dokumentu
+
+1. Stručný přehled amaterských družic
+  - začátky
+  - druhy družic
+  - družice kterými se budeme zaoberat
+
+2. Sledování a preikce pohybu těles na oběžné dráze Země
+
+3. Výpočet rychlosti
+
+4. Určení dopplerovského posuvu kmitočtu signálu
+
+5. Korekce dopplerovského posuvu
+
+6. Demodulace a dekódování signálu
+
+7. Vytvoření archivu s daty TLE
+
+8. Řešení korekce doppelrovského posuvu
+  - gpreditc -- libgpredict, doppler
+  - sox, mediainfo

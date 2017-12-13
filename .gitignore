@@ -7,11 +7,13 @@
 
 build/
 dist/
+obrazky/large/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 
+Python/tmp*
 *.swp
 
 # C extensions

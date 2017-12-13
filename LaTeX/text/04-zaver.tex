@@ -1,2 +1,8 @@
 \chapter{Závěr}
-  TBD\dots
+
+Dopplerův jev je součástí našeho každodenního života, a to nejen v případě když vedle nás na železniční projede vysokorychlostní vlaková souprava dávající kontinuální výstražní signál, ale i v případě, že na ni sedíme a snažíme se naším mobilním komunikačním prostředkem provést datovou komunikaci prostřednictvím radiových signálů, avšak musí se poznamenat, že i rychlost nejrychlejšího vlaku je zanedbatelná vzhledem ke rychlosti družice na nízké oběžné dráze\footnote{viz. tabulka \ref{tab:orbit_vel}, najrýchlejši vlak pro osobní dopravu dle wikipedie dosahuje rychlosti $603\,\nicefrac{\mathrm{km}}{\mathrm{s}} = 0{,}1675\,\nicefrac{\mathrm{m}}{\mathrm{s}}$\cite{wiki:train}}.
+Nejenom vysoká rychlost pohybu umělé družice, ale i použitý kmitočet z pásma $70\,\mathrm{cm}$ vln nás vede ke nutnosti korigování vzniklého dopplerovského posuvu kmitočtu signálu.
+
+Táto část zadáni byla provedená bez jakýkoli zjištěné chyby. Jako ukazují spektrogramy v kapitole \ref{chap:prez} (obrázky \ref{fig:NO-84_raw} až \ref{fig:NO-83_ud}), korekce dopplerovského posuvu je do značné míry úspěšně provedeno. Cesta vývoje telemetrického archivu však žádném případě tady nekončí, a před námi je ještě několik problémů, které se musí zdolat.
+
+Pokračováním projektu je demodulace a vytvoření databáze. Obdobně jako dosavadní práci, i další části projektu jsou plánovány být implementovány pomocí volného softwaru jako GNU Radio a SQLite, který pod licencí public domain \cite{{wiki:sqlite}}.
