@@ -1,6 +1,6 @@
-\chapter{Realizace skriptů v jazyce Python 3}
+\chapter[Realizace skriptů v jazyce Python 3]{Realizace skriptů\\ v jazyce Python 3}
 
-\section{vytvoření archivu dat TLE}
+\section{Vytvoření archivu dat TLE}
   Vytvoření lokální databázi dat TLE je nezbytné pro správnou korekci dopplerovského posuvu. Pro umělé družice NO-83 a NO-84 jsou veřejně přístupné data TLE na stránce organizace \zkratka{AMSAT}: <\url{http://amsat.org/pipermail/keps/}>. Tyto data jsou distribuované formou elektronického mailing list, kterého archív se nachází na výše zmíněném URL v jedním souboru. Aby bylo možné použit údaje TLE obsáhnuty v tomhle archivním souboru, je nutné provést extrakci dat TLE dle datu jejího vzniku.
 
   Na obrázku \ref{fig:TLE_flow} je uveden vývojový diagram skriptu pro extrahování dat TLE. Jako povinný vstupní parametr je název souboru staženého z webové stránky oragnizace \zkratka{AMSAT}. Data TLE jsou posílané v jednom emailu. Skript identifikuje začátek i konec balíků dat TLE. Na začátku každého balíku se hledjí vzory:\\
@@ -28,7 +28,7 @@
 
   Program doppler je utlitou příkazového řádku, který ze standardního vstupu čte IQ (in-phase, quadrature) data a zpracovává dle zadaných parametrů. Rozlišujeme dva režimy korekce frekvenčního posuvu. V režimu \emph{const} se kompenzuje konstantní posuv kmitočtu, kým v režimu \emph{track} se provádí korekce sledováním pohybu umělé družice a to i dodatečně v případě zpracování předem zaznamenaných dat IQ. V pozdním případě se programu doppler musí předát argument datu a času záznamu ve formátu ISO 8601 \cite{wiki:timeISO} \cite{github:doppler} bez udání časového posuvu v čase UTC.
 
-  Korekce dopplerovského posuvu se provádí programem doppler za pomoci volně dostupné knihovny libgpredict, který je založen na predikčním kódu programu Gpredict\cite{github:ligpredict}
+  Korekce dopplerovského posuvu se provádí programem doppler za pomoci volně dostupné knihovny libgpredict, který je založen na predikčním kódu programu Gpredict. \cite{github:libgpredict}
 
   Aby se zjednodušilo zpracování velikého množství souborů, byl vytvořen skript v jazyce Python 3 pro automatické zpracování záznamů s IQ daty. Modul get\_undopplred má definovanou funkci undoppler\_it, který jako vstupní parametry má:
   \begin{itemize}
@@ -64,7 +64,7 @@ Python 3 modul pro tvorbu spektrogramů. Jediným argumentem je název souboru I
 
 Kudy směrují tyto moduly? Je filozofická otázka, na kterou by se dalo napsat nespočetné množství stran. Lze říct, že sami o sobě tyto moduly, skripty, neprovádějí automatické zpracování signálů, avšak jako základ pro budoucí vývoj mohou být nápomocné pro svou vlastnost zjednodušeného volání jinou funkcí, skriptem. Jazyk Python umožňuje jednoduchou iteraci nad všemi soubory složky, což nám dává možnost dávkového zpracování souborů s IQ daty.
 
-Do budoucna se počítá s dalším zpracováním frekvenčně zkorigovaných signálů. Jedná se o demodulaci FM a následné dekódování přijatých zpráv telemetrie PSK31.
+Do budoucna se počítá s dalším zpracováním frekvenčně zkorigovaných signálů -- demodulace FM a následné dekódování přijatých zpráv telemetrie PSK31.
 
 
 \chapter{Prezentace výsledků}
