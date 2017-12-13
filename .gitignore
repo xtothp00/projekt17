@@ -4,10 +4,11 @@
 .~lock.*.odt#
 *.bmp
 *~
+*.xcf
 
 build/
 dist/
-obrazky/large/*
+LaTeX/obrazky/large/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
