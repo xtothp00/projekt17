@@ -63,7 +63,7 @@ def find_TLE_for_IQ_file(filename_IQ, directory_TLE='../keps/'):
     return None
 
 # Function used for undoing the doppler frequency shift using the doppler application called by os.system
-def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73', offset_corr=False):
+def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73', offset_corr=False, offset=0):
   '''undoppler_it(filename_IQ, [satellite_name='NO-84', satellite_frequency='435350000', directory_IQ='../NO-84', directory_TLE='../keps', location_SDR='lat=49.173238,lon=16.961292,alt=263.73']):
 
   Only one paremeter is requered not to get an error, but not all time
@@ -79,8 +79,10 @@ def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='43535
     audio = mediainfo_IQ_tracks[1]
     audio_dict = audio.to_data()
 
+    delta_t = 0
     local_TZ = pytz.timezone('Europe/Prague')
     naive_datetime_IQ = datetime.datetime.strptime(parameters_IQ.get('date') + parameters_IQ.get('time'), '%Y%m%d%H%M%S')
+    naive_datetime_IQ = datetime.datetime.fromtimestamp(naive_datetime_IQ.timestamp() + delta_t)
     local_datetime_IQ = local_TZ.localize(naive_datetime_IQ, is_dst=None)
     utc_datetime_IQ = local_datetime_IQ.astimezone(pytz.utc)
 
@@ -111,7 +113,6 @@ def undoppler_it(filename_IQ, satellite_name='NO-84', satellite_frequency='43535
     sox_cmd_inp = 'sox ' + sox_cmd_rbche + ' --type wav ' + infile + sox_cmd_rbche + ' --type raw -'
 
     if offset_corr:
-      offset = int(satellite_frequency) - (1000 * int(parameters_IQ.get('frequency')))
       offset = '--offset %d ' %(offset)
       doppler_cmd = 'doppler track '+ samplerate + intype + outtype + tlefile + tlename + location + frequency + time + offset
     else:

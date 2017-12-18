@@ -58,7 +58,7 @@ czech,              % originální jazyk je čeština (výchozí)
 \usepackage[T1]{fontenc}  % Kódování fontu - mj. kvůli správným vzorům pro dělení slov
 
 %\usepackage{amsmath}
-\usepackage{booktabs}      % Balíček, který umožňuje v tabulce používat příkazy \toprule, \midrule, \bottomrule 
+\usepackage{booktabs}      % Balíček, který umožňuje v tabulce používat příkazy \toprule, \midrule, \bottomrule
 
 
 \usepackage[%
@@ -100,13 +100,13 @@ semestral            %  sazba zprávy semestrálního projektu
 \logohlavicka          % vytvoření zkraceného loga VUT FEKT (FEEC) v hlavičce slajdu, nechte odkomentované
 
 \usetheme{VUT}         % barvy a rozložení prezentace odpovídající VUT FEKT
-% alternativne lze pouzit jina berevna temata, napr. 
+% alternativne lze pouzit jina berevna temata, napr.
 %\usetheme{Darmstadt} \usecolortheme{default2}
 % ale bez zaruky
 
 \begin{document}
 
-% v pripade zakomentovani se zobrazi v pravem dolnim rohu slajdu klikatelne navigacni symboly 
+% v pripade zakomentovani se zobrazi v pravem dolnim rohu slajdu klikatelne navigacni symboly
 \vypninavigacnisymboly
 
 % snimek s titulni strankou vysazen bez hornich, dolnich a postranich list (volba plain),
@@ -115,7 +115,7 @@ semestral            %  sazba zprávy semestrálního projektu
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 1.snimek s cili (zadanim) prace
-\begin{frame} 
+\begin{frame}
   % nadpis snímku
   \frametitle{Telemetrický archiv družic}
   \begin{itemize}
@@ -126,7 +126,7 @@ semestral            %  sazba zprávy semestrálního projektu
 \end{frame}
 
 %%%%%%%%%%%%%
-\begin{frame} 
+\begin{frame}
   \frametitle{Nízka oběžná dráha}
 
   % prostředí alertblok, které slouží pro zdůraznění informace
@@ -145,36 +145,56 @@ semestral            %  sazba zprávy semestrálního projektu
       \item GNURadio
     \end{itemize}
   \end{alertblock}
-\end{frame} 
-
-
-%%%%%%%%%%%%%
-\begin{frame} 
-  \frametitle{}
-  
 \end{frame}
 
 
 %%%%%%%%%%%%%
-\begin{frame} 
+\begin{frame}
+  \frametitle{Archiv dat TLE}
+    \begin{itemize}
+      \item zdrojem je archiv emailů AMSAT-NA
+      \item důlování dat skriptem Pyton
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%
+\begin{frame}
   \frametitle{Výsledky}
-%    \begin{figure}[ht]
-%      \centring
-      \includegraphics{obrazky/HDSDR_20160127_161858Z_435320kHz_RFUD.png}
-%    \end{figure}
-
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.9\textwidth]{obrazky/HDSDR_20160130_125905Z_435320kHz_RF.png}
+    \end{figure}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Výsledky}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.8\textwidth]{obrazky/HDSDR_20160130_125905Z_435320kHz_RFUD.png}
+    \end{figure}
+\end{frame}
 
 %%%%%%%%%%%%%
-\begin{frame} 
+\begin{frame}
   \frametitle{Závěr}
-  \dots
+    \begin{itemize}
+      \item automatická korekce dopplerovského posuvu
+      \item možnost odstránění frekvenčního ofsetu
+      \item dávkové spracování IQ záznamů
+    \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{T+1}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=1\textwidth]{obrazky/screenshot.png}
+    \end{figure}
+\end{frame}
 
 % podekovani
-\begin{frame}[c] 
+\begin{frame}[c]
 % bez nadpisu snimku
   \frametitle{\mbox{ }}
   \begin{center}
