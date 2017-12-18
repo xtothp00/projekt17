@@ -88,7 +88,7 @@ semestral            %  sazba zprávy semestrálního projektu
 %%%%%%     Nastavení polí ve Vlastnostech dokumentu PDF      %%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Při vloženém balíčku 'hyperref' lze použít příkaz '\nastavenipdf'
-\nastavenipdf
+%\nastavenipdf
 %  Nastavení polí je možné provést také ručně příkazem:
 \hypersetup{
   pdftitle={Telemetrický archiv družic},      % Pole 'Document Title'
@@ -150,54 +150,19 @@ semestral            %  sazba zprávy semestrálního projektu
 
 %%%%%%%%%%%%%
 \begin{frame} 
-  \frametitle{Plošný spoj}
+  \frametitle{}
   
-  \begin{columns}[T]                 % prostředí sloupce s umístěním nahoře
-    \begin{column}{0.4\textwidth}    % první sloupec
-      Obrázek znázorňuje model:\\[2ex]
-      %
-      \begin{itemize}
-        \item Deska
-        \item Součástky
-        \item Signály
-        \item Napájení
-      \end{itemize}
-    \end{column}
-    %
-    \begin{column}{0.6\textwidth}    % druhý sloupec
-      \begin{figure}%  
-        \centering
-        \vspace{1cm}                % horizontální mezera
-%        \includegraphics[width=0.8\columnwidth]{obrazky/soucastky}
-        \includegraphics[width=0.8\columnwidth]{obrazky/get_undopplered}
-        %lze vlozit popisek, ale povetsinou je to v prezentaci zbytecne
-        %\caption{Popisek obrázku}%
-        %\label{obr:ukazka}
-      \end{figure}
-    \end{column}
-  \end{columns}                      % ukončení prostředí sloupce
 \end{frame}
 
 
 %%%%%%%%%%%%%
 \begin{frame} 
   \frametitle{Výsledky}
-  \vspace{1cm}
-  \begin{table}[]
-    \centering
-    \caption{Výsledky měření mobilních sítí}
-    \label{tab:tabulka}
-      \begin{tabular}{lcc}
-        \toprule
-          Technologie  & Rychlost stahování [kB/s] & Rychlost nahrávání [kB/s] \\
-        \midrule
-          GPRS (2,5G)  & 7,2   & 3,6\\
-          UMTS 3G     & 48     & 48\\
-          HSPA (3,5G)  &  1\,706  &  720\\
-          LTE (4G)     & 40\,750 & 10\,750\\
-        \bottomrule                                       
-      \end{tabular}
-  \end{table}
+%    \begin{figure}[ht]
+%      \centring
+      \includegraphics{obrazky/HDSDR_20160127_161858Z_435320kHz_RFUD.png}
+%    \end{figure}
+
 \end{frame}
 
 
